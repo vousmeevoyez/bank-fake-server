@@ -138,3 +138,12 @@ class BniOpgMockService(BaseMockService):
             "data": encrypted_payload,
         }
         return data
+
+
+def generate_fake_token():
+    return {
+        "access_token": "V0nmtLdEfvkc2QmKfu5ycsfIttl84ge8P0G3yAV2HDv9VGFG8s2URa",
+        "token_type": "Bearer",
+        "expires_in": 3600,
+        "scope": "resource.WRITE resource.READ"
+    }, 200
