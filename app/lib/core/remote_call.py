@@ -23,7 +23,11 @@ async def fetch(request):
         try:
             async with session.request(**request) as resp:
                 response = await resp.text()
-                response = json.loads(response)
+                try:
+                    response = json.loads(response)
+                except json.decoder.JSONDecodeError:
+                    pass
+
                 if resp.content_type == "application/json":
                     response = await resp.json(content_type=None)
 
