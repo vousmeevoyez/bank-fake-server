@@ -5,6 +5,7 @@
 
 class Factory:
     """ Factory """
+
     def __init__(self):
         self._creators = {}
 
@@ -17,4 +18,4 @@ class Factory:
         creator = self._creators.get(type_)
         if not creator:
             raise ValueError(type_)
-        return creator()
+        return creator

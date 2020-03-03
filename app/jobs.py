@@ -1,4 +1,4 @@
-from app.lib.core.remote_call import fetch
+from app.lib.remote_call import fetch
 
 from app.config import CALLBACK
 
