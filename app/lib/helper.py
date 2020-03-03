@@ -4,7 +4,7 @@
 """
 import json
 
-from app.lib.BniEnc3 import BniEnc, BNIVADecryptError
+from app.lib.external.BniEnc3 import BniEnc, BNIVADecryptError
 
 
 class DecryptError(Exception):
