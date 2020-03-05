@@ -83,14 +83,30 @@ def test_bni_opg_failed_fake_response():
 
 
 def test_oy_successfull_fake_response():
-    fake_response = OyVaSuccessResponse({"amount": 1})
+    fake_response = OyVaSuccessResponse({"amount": 1, "partner_user_id":
+                                         "ABC123"})
     response, status_code = fake_response.to_representation()
     assert status_code == 200
     assert response["status"]
     assert response["status"]["code"]
     assert response["status"]["message"]
     assert response["amount"] == 1
-    assert response["vaNumber"]
+    virtual_account = response["vaNumber"]
+    assert virtual_account
+
+    fake_response = OyVaSuccessResponse(
+        {
+            "amount": 100,
+            "partner_user_id": "ABC123"
+        }
+    )
+    response, status_code = fake_response.to_representation()
+    assert status_code == 200
+    assert response["status"]
+    assert response["status"]["code"]
+    assert response["status"]["message"]
+    assert response["amount"] == 100
+    assert response["vaNumber"] == virtual_account
 
 
 def test_oy_failed_fake_response():

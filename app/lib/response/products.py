@@ -3,6 +3,8 @@
 """
 import json
 import uuid
+import functools
+
 from random import randint
 from datetime import datetime
 
@@ -119,12 +121,25 @@ class OyVaSuccessResponse(BaseResponse):
         "vaNumber": "$vaNumber"\
     }'
 
+    @staticmethod
+    def str2int(s, chars):
+        i = 0
+        for c in reversed(s):
+            i *= len(chars)
+            i += chars.index(c)
+        return i
+
     def generate_static_data(self):
-        start_range = "1" * 16
-        end_range = "9" * 16
+        chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        chars = chars + chars.lower()
+
+        partner_user_id = self.serialized_data["partner_user_id"]
+        va_length = 16
+        padded_str = partner_user_id.ljust(va_length-len(partner_user_id), "A")
+        virtual_account = self.str2int(padded_str, chars)
 
         static_data = {
-            "vaNumber": randint(int(start_range), int(end_range))
+            "vaNumber": int(virtual_account)
         }
         return static_data
 
