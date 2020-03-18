@@ -1,10 +1,7 @@
-from app.oy.services import (
-    oy_transfer,
-    generate_static_va
-)
+from app.oy.services import oy_transfer, generate_static_va
 
 
-'''
+"""
 async def test_oy_transfer(make_real_aiohttp_request):
     headers = {
         "X-OY-Username": "username",
@@ -21,4 +18,4 @@ async def test_oy_transfer(make_real_aiohttp_request):
     response, status_code = await oy_transfer(mock_request)
     print(response)
     print(status_code)
-'''
+"""

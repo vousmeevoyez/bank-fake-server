@@ -30,6 +30,7 @@ ROUTER = {
     "OY_PAYMENT_INQUIRY": "/api/remit-status",
     "OY_BALANCE": "/api/balance",
     "OY_GENERATE_VA": "/api/generate-static-va",
+    "OY_VA_DETAILS": "/api/static-virtual-account/{id}",
 }
 
 
@@ -60,3 +61,4 @@ def setup_routes(app):
     app.router.add_view(ROUTER["OY_PAYMENT_INQUIRY"], OyDisburseStatusView)
     app.router.add_view(ROUTER["OY_BALANCE"], OyBalanceView)
     app.router.add_view(ROUTER["OY_GENERATE_VA"], OyStaticVaView)
+    app.router.add_view(ROUTER["OY_VA_DETAILS"], OyVaDetailsView)

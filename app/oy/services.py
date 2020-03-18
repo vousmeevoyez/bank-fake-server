@@ -19,6 +19,18 @@ async def oy_transfer(request):
 
 async def generate_static_va(request):
     """ for oy we execute mock response """
+    # we need to cache static va info and then re use it for updating
     services = await generate_actual_services(request, "FAKE")
     response, status_code = await services.execute()
+    return response, status_code
+
+
+async def update_static_va(request):
+    """ for oy we execute mock response """
+    services = await generate_actual_services(request, "FAKE")
+    response, status_code = await services.execute()
+
+    # get generated va_id
+    va_id = request.match_info["id"]
+    response["id"] = va_id
     return response, status_code

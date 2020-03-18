@@ -83,21 +83,16 @@ def test_bni_opg_failed_fake_response():
 
 
 def test_oy_successfull_fake_response():
-    fake_response = OyVaSuccessResponse({"amount": 1, "partner_user_id":
-                                         "ABC123"})
-    response, status_code = fake_response.to_representation()
-    assert status_code == 200
-    assert response["status"]
-    assert response["status"]["code"]
-    assert response["status"]["message"]
-    assert response["amount"] == 1
-    virtual_account = response["vaNumber"]
-    assert virtual_account
-
     fake_response = OyVaSuccessResponse(
         {
-            "amount": 100,
-            "partner_user_id": "ABC123"
+            "bank_code": "009",
+            "amount": 1,
+            "partner_user_id": "ABC123",
+            "is_open": False,
+            "is_single_use": True,
+            "is_lifetime": True,
+            "expiration_time": "",
+            "username_display": "",
         }
     )
     response, status_code = fake_response.to_representation()
@@ -105,8 +100,42 @@ def test_oy_successfull_fake_response():
     assert response["status"]
     assert response["status"]["code"]
     assert response["status"]["message"]
+    assert response["id"]
+    assert response["amount"] == 1
+    assert response["is_open"] is False
+    assert response["is_single_use"] is True
+    assert response["expiration_time"] == -1
+    assert response["username_display"] == "MODANA"
+
+    virtual_account = response["va_number"]
+    assert virtual_account
+
+    # because its same partner user id we need to make sure its return same
+    # virtual account number
+    fake_response = OyVaSuccessResponse(
+        {
+            "bank_code": "009",
+            "amount": 100,
+            "partner_user_id": "ABC123",
+            "is_open": False,
+            "is_single_use": True,
+            "is_lifetime": False,
+            "expiration_time": "",
+            "username_display": "",
+        }
+    )
+    response, status_code = fake_response.to_representation()
+    assert status_code == 200
+    assert response["status"]
+    assert response["status"]["code"]
+    assert response["status"]["message"]
+    assert response["id"]
     assert response["amount"] == 100
-    assert response["vaNumber"] == virtual_account
+    assert response["is_open"] is False
+    assert response["is_single_use"] is True
+    assert response["expiration_time"] > 0
+    assert response["username_display"] == "MODANA"
+    assert response["va_number"] == virtual_account
 
 
 def test_oy_failed_fake_response():

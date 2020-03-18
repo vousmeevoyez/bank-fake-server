@@ -31,6 +31,6 @@ BNI_ECOLLECTION = {
 BNI_RDL = {
     "CLIENT_NAME": os.getenv("BNI_RDL_CLIENT_NAME") or "client-name",
     "COMPANY": os.getenv("BNI_RDL_COMPANY") or "company-name",
-    "SECRET_API_KEY": os.getenv("BNI_RDL_SECRET_API_KEY") or
-    "some-super-secret-api-key",
+    "SECRET_API_KEY": os.getenv("BNI_RDL_SECRET_API_KEY")
+    or "some-super-secret-api-key",
 }

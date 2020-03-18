@@ -18,3 +18,14 @@ async def test_generate_serialized_data(make_aiohttp_request):
     assert serialized_data["amount"]
     assert serialized_data["bank_code"]
     assert serialized_data["partner_user_id"]
+
+
+    headers = ((b"X-OY-Username", b"modana"), (b"X-Api-Key", b"dev-oykey-modana"))
+    data = {"partner_user_id": "oy00000001", "bank_code": "002", "amount": 500000}
+
+    mocked = make_aiohttp_request(
+        data=data, headers=headers, url="/api/static-virtual-account/12312312"
+    )
+
+    serialized_data = await generate_serialized_data(mocked)
+    assert serialized_data

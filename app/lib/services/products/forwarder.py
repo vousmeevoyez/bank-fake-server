@@ -54,8 +54,7 @@ class ForwarderServices(BaseServices):
     async def execute(self):
         """ forward the received request to designated resource backend """
         # forwarded url
-        forwarded_url = FORWARD_CONFIG[self.resource] \
-            + str(self.request.rel_url)
+        forwarded_url = FORWARD_CONFIG[self.resource] + str(self.request.rel_url)
         # prepare all information here
         data, key = await self.unpack_request()
         headers = self.unpack_headers()
