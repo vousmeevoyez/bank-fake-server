@@ -32,8 +32,6 @@ class BniRdlTransferSchema(Schema):
         return unpack
 
 
-
-
 """
     BNI OPG
 """
@@ -57,6 +55,7 @@ class BniOpgTransferSchema(Schema):
     OY
 """
 
+
 class OyDisburseSchema(Schema):
     """ schema used for transfer using BNI OPG """
 
@@ -75,6 +74,24 @@ class OyStaticVaSchema(Schema):
     partner_user_id = fields.Str()
     bank_code = fields.Str()
     amount = fields.Decimal()
+    is_open = fields.Boolean()
+    is_single_use = fields.Boolean()
+    is_lifetime = fields.Boolean()
+    expiration_time = fields.Str()
+    username_display = fields.Str()
+
+    class Meta:
+        unknown = EXCLUDE
+
+
+class OyUpdateStaticVaSchema(Schema):
+    """ schema used for transfer using BNI OPG """
+
+    amount = fields.Decimal()
+    is_open = fields.Boolean()
+    is_single_use = fields.Boolean()
+    is_lifetime = fields.Boolean()
+    expiration_time = fields.Str()
 
     class Meta:
         unknown = EXCLUDE

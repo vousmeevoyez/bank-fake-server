@@ -9,7 +9,16 @@ from app.lib.services.products.mocker import FakeServices
 @pytest.mark.asyncio
 async def test_oy_fake_request(make_aiohttp_request):
     mocked = make_aiohttp_request(
-        data={"partner_user_id": "oy00000001", "bank_code": "002", "amount": 500000},
+        data={
+            "partner_user_id": "oy00000001",
+            "bank_code": "002",
+            "amount": 500000,
+            "is_open": False,
+            "is_single_use": True,
+            "is_lifetime": True,
+            "expiration_time": "",
+            "username_display": "",
+        },
         headers=((b"X-OY-Username", b"modana"), (b"X-Api-Key", b"dey-oykey-modana")),
         url="/api/generate-static-va",
         method="POST",
@@ -21,8 +30,12 @@ async def test_oy_fake_request(make_aiohttp_request):
     assert response["status"]
     assert response["status"]["code"]
     assert response["status"]["message"]
-    assert response["amount"]
-    assert response["vaNumber"]
+    assert response["id"]
+    assert response["amount"] == 500000
+    assert response["is_open"] is False
+    assert response["is_single_use"] is True
+    assert response["expiration_time"] == -1
+    assert response["username_display"] == "MODANA"
 
 
 @pytest.mark.asyncio

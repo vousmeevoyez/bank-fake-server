@@ -14,11 +14,7 @@ class BaseForwardView(web.View):
 
     async def post(self):
         """ forward request to BNI to get auth Token """
-        services = await generate_actual_services(
-            self.request,
-            "FORWARD",
-            "BNI_OPG"
-        )
+        services = await generate_actual_services(self.request, "FORWARD", "BNI_OPG")
         response, status_code = await services.execute()
         return web.json_response(response, status=status_code)
 

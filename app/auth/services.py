@@ -6,11 +6,7 @@ from app.lib.services.factory import generate_actual_services
 
 async def get_token(request):
     """ reqeust token to BNI OPG or RDL if not error we fake it """
-    rdl_services = await generate_actual_services(
-        request,
-        "FORWARD",
-        "BNI_RDL"
-    )
+    rdl_services = await generate_actual_services(request, "FORWARD", "BNI_RDL")
     response, status_code = await rdl_services.execute()
 
     # to prevent silly failed if status code is not successfull we rpelace

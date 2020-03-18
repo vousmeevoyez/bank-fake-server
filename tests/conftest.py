@@ -48,14 +48,10 @@ def make_aiohttp_request():
 
 @pytest.fixture
 def make_real_aiohttp_request():
-    def _make_real_aiohttp_request(
-        headers,
-        data,
-        url,
-        method,
-    ):
+    def _make_real_aiohttp_request(headers, data, url, method):
         mocked = make_mocked_request(method, url, headers=headers, payload=data)
         return mocked
+
     return _make_real_aiohttp_request
 
 

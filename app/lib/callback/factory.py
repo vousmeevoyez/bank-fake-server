@@ -1,8 +1,5 @@
 from app.lib.core.factory import Factory
-from app.lib.callback.products import (
-    BniVaCallback,
-    BniRdlCallback
-)
+from app.lib.callback.products import BniVaCallback, BniRdlCallback
 
 
 def generate_callback(resource):
