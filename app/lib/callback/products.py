@@ -9,16 +9,12 @@ from app.jobs import trigger_callback
 from app.lib.services.products.base import BaseSerializedServices
 from app.lib.remote_call import fetch
 from app.lib.helper import encrypt
-from app.config import (
-    BNI_ECOLLECTION,
-    BNI_RDL
-)
+from app.config import BNI_ECOLLECTION, BNI_RDL
 
 from app.exceptions import VirtualAccountNotFoundError
 
 
 class BaseCallback:
-
     def __init__(self, request, serialized_data):
         self.request = request
         self.serialized_data = serialized_data
@@ -105,17 +101,10 @@ class BniRdlCallback(BaseCallback):
             "payment_amount": self.serialized_data["amount"],
             "accounting_flag": "C",
             "journal_number": str(payment_ntb),
-            "datetime_payment": datetime_payment
+            "datetime_payment": datetime_payment,
         }
 
-        encrypted_payload = encrypt(
-            p2p_id,
-            BNI_RDL["SECRET_API_KEY"],
-            callback_payload,
-        )
+        encrypted_payload = encrypt(p2p_id, BNI_RDL["SECRET_API_KEY"], callback_payload)
 
-        data = {
-            "client_id": p2p_id,
-            "data": encrypted_payload,
-        }
+        data = {"client_id": p2p_id, "data": encrypted_payload}
         return data

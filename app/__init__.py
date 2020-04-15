@@ -22,5 +22,6 @@ async def init_app(argv=None):
 
     setup_aiohttp_apispec(app)
     setup_aiojobs(app)
+
     app.middlewares.append(validation_middleware)
     return app
