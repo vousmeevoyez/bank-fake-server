@@ -1,4 +1,4 @@
-# Modana Fake Server
+# Banking Fake Server
 
 Fake Server that simulates (BNI OPG, BNI RDL, BNI VA and OY) like a production where all this part are connected together
 
